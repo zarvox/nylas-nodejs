@@ -49,13 +49,11 @@ class NylasConnection
     options.json ?= true
     options.downloadRequest ?= false
 
-    user = if options.path.substr(0,3) == '/a/' then Nylas.appSecret else @accessToken
+    authToken = if options.path.substr(0,3) == '/a/' then Nylas.appSecret else @accessToken
 
-    if user
+    if authToken
       options.auth =
-        'user': user
-        'pass': '',
-        'sendImmediately': true
+        'bearer': authToken
     return options
 
   request: (options={}) ->
